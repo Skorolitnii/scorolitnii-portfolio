@@ -123,13 +123,17 @@ strong {
   width: 46px;
   height: 46px;
   place-items: center;
-  border-radius: 50%;
+  border-radius: 23px;
   background: var(--surface);
   border: 1px solid var(--border);
-  box-shadow: 0 8px 32px var(--shadow);
-  color: var(--primary);
-  font-family: var(--font-display);
-  font-size: 20px;
+  box-shadow: 0 8px 16px var(--shadow);
+  padding: 1px;
+}
+
+.nav-logo img {
+  width: 24px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .nav-pills {
@@ -359,24 +363,8 @@ strong {
 
 .hero-card .card-content {
   display: flex;
-  gap: 24px;
-  align-items: center;
-}
-
-.avatar {
-  display: grid;
-  width: 205px;
-  height: 205px;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 38% 32%, #fff 0 7%, transparent 8%),
-    var(--gradient-brand);
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 58px;
-  box-shadow: inset 0 -26px 70px rgba(0, 0, 0, 0.18);
+  align-items: flex-start;
+  padding: 24px 40px;
 }
 
 .hero-copy {
@@ -481,6 +469,32 @@ strong {
 .case-card.tools .card-label,
 .case-card.tools p {
   color: rgba(255, 255, 255, 0.68);
+}
+
+.photo-card {
+  align-items: stretch;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 52% 18%, rgba(255, 255, 255, 0.5), transparent 34%),
+    linear-gradient(180deg, rgba(250, 249, 247, 0.8), rgba(224, 220, 212, 0.95));
+}
+
+.photo-card::before {
+  z-index: 2;
+}
+
+.full-body-photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.photo-card:hover .full-body-photo {
+  transform: scale(1.025);
 }
 
 .quote-card {

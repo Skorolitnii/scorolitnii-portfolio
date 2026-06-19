@@ -13,6 +13,10 @@ import {
 
 const FILTERS = ["All", "Work", "Play", "Contact"];
 const BREAKPOINT = 768;
+const ASSETS = {
+  logo: "assets/my-logo.svg",
+  fullBody: "assets/profile-full-body.png"
+};
 
 const cards = [
   {
@@ -73,13 +77,11 @@ const cards = [
     delay: "0.4s"
   },
   {
-    key: "ai",
-    type: "case",
+    key: "photo",
+    type: "photo",
     filter: "Work",
-    className: "case-card ai-system",
-    label: "AI workflow",
-    title: "Интерфейсные процессы, которые может понимать AI",
-    text: "Именование слоёв, контракты компонентов и документация как часть продукта.",
+    className: "photo-card",
+    title: "Alexandr Scorolitnii",
     col: "4",
     row: "2 / 4",
     delay: "0.5s"
@@ -396,15 +398,10 @@ const App = defineComponent({
       if (card.type === "about") {
         return h("article", attrs, [
           h("div", { class: "card-content" }, [
-            h("div", { class: "avatar", "aria-hidden": "true" }, "VI"),
             h("div", { class: "hero-copy" }, [
               h("span", { class: "card-label" }, "Product Designer"),
-              h("h1", "Ваше имя"),
-              h("p", [
-                "Создаю понятные цифровые продукты, дизайн-системы и интерактивные интерфейсы. ",
-                h("strong", "Этот шаблон повторяет технологии и эффекты референса"),
-                ", но готов к замене под твой контент."
-              ])
+              h("h1", "Alexandr Scorolitnii"),
+              h("p", "Создаю понятные цифровые продукты, дизайн-системы и интерактивные интерфейсы.")
             ])
           ])
         ]);
@@ -429,6 +426,21 @@ const App = defineComponent({
             h("h2", card.title),
             h("p", card.text)
           ])
+        ]);
+      }
+
+      if (card.type === "photo") {
+        return h("article", {
+          ...attrs,
+          "data-tooltip": "Alexandr Scorolitnii"
+        }, [
+          h("img", {
+            class: "full-body-photo",
+            src: ASSETS.fullBody,
+            alt: card.title,
+            loading: "lazy",
+            draggable: "false"
+          })
         ]);
       }
 
@@ -471,7 +483,9 @@ const App = defineComponent({
         style: { transform: `translate3d(${tooltip.x}px, ${tooltip.y}px, 0)` }
       }, tooltip.text),
       h("nav", { class: ["nav", navHidden.value ? "nav--hidden" : ""] }, [
-        h("a", { class: "nav-logo", href: "#", "aria-label": "На главную" }, "VI"),
+        h("a", { class: "nav-logo", href: "#", "aria-label": "На главную" }, [
+          h("img", { src: ASSETS.logo, alt: "Alexandr Scorolitnii logo", draggable: "false" })
+        ]),
         h("div", {
           class: "nav-pills",
           onMousemove: onNavMousemove,
