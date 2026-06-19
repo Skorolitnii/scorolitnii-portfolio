@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/((?!styles/|scripts/|favicon|.*\\.).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

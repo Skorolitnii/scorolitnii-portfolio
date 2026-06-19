@@ -1,0 +1,11 @@
+{
+  "name": "personal-portfolio-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "build": "npm run check",
+    "check": "node --check server.mjs && node --check scripts/main.js"
+  }
+}
