@@ -790,11 +790,12 @@ strong {
   object-position: center bottom;
   backface-visibility: hidden;
   transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
+  transform-origin: center bottom;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .photo-card:hover .full-body-photo {
-  transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg) scale(1.025);
+  transform: translate3d(0, 0, 0) scaleX(-1) rotate(0deg) scale(1.025);
 }
 
 .quote-card {
