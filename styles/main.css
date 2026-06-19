@@ -459,11 +459,35 @@ strong {
 .effect-toggle {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   height: 36px;
-  padding: 0 14px 0 10px;
+  padding: 0 12px;
   font-size: 13px;
   font-weight: 500;
+}
+
+.effect-toggle-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  background: currentColor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.effect-toggle-icon--lazy {
+  mask-image: url("../assets/icon-mode-lazy.svg");
+  -webkit-mask-image: url("../assets/icon-mode-lazy.svg");
+}
+
+.effect-toggle-icon--fast {
+  mask-image: url("../assets/icon-mode-fast.svg");
+  -webkit-mask-image: url("../assets/icon-mode-fast.svg");
 }
 
 .theme-toggle,

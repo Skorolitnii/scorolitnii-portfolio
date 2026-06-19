@@ -573,7 +573,10 @@ const App = defineComponent({
             "data-tooltip": isLazy.value ? "Плавный режим включён" : "Быстрый режим",
             onClick: () => { isLazy.value = !isLazy.value; }
           }, [
-            h("span", isLazy.value ? "◌" : "●"),
+            h("span", {
+              class: ["effect-toggle-icon", isLazy.value ? "effect-toggle-icon--lazy" : "effect-toggle-icon--fast"],
+              "aria-hidden": "true"
+            }),
             h("span", isLazy.value ? "Lazy" : "Fast")
           ]),
           h("button", {
