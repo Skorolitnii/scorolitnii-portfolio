@@ -234,7 +234,7 @@ strong {
 
 .preloader-logo {
   width: 86px;
-  height: 72px;
+  height: 86px;
   object-fit: contain;
   filter: drop-shadow(0 14px 34px rgba(85, 82, 255, 0.38));
 }
@@ -362,7 +362,7 @@ strong {
 
 .nav-logo img {
   width: 24px;
-  height: 20px;
+  height: 24px;
   object-fit: contain;
 }
 
