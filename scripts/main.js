@@ -174,6 +174,9 @@ const App = defineComponent({
     const navHidden = ref(false);
     const showBackToTop = ref(false);
     const openedCase = ref(null);
+    const preloaderPhase = ref("intro");
+    const showPreloader = ref(true);
+    const contentReady = ref(false);
     const pointer = reactive({ x: -80, y: -80, tx: -80, ty: -80, active: false, text: false });
     const tooltip = reactive({ text: "", visible: false, x: -80, y: -80 });
     const slotEls = {};
@@ -190,6 +193,7 @@ const App = defineComponent({
     let cursorRaf = 0;
     let removeSmooth = () => {};
     let removeCursor = () => {};
+    const preloaderTimers = [];
 
     const visibleCards = computed(() => cards.map((card) => ({
       ...card,
@@ -366,6 +370,28 @@ const App = defineComponent({
       document.body.style.overflow = "";
     }
 
+    function schedulePreloader() {
+      const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.body.classList.add("is-preloading");
+
+      if (reduceMotion) {
+        contentReady.value = true;
+        showPreloader.value = false;
+        document.body.classList.remove("is-preloading");
+        return;
+      }
+
+      preloaderTimers.push(setTimeout(() => {
+        preloaderPhase.value = "exit";
+        contentReady.value = true;
+      }, 950));
+
+      preloaderTimers.push(setTimeout(() => {
+        showPreloader.value = false;
+        document.body.classList.remove("is-preloading");
+      }, 1850));
+    }
+
     onMounted(() => {
       updatePill();
       document.documentElement.dataset.theme = isDark.value ? "dark" : "light";
@@ -373,6 +399,7 @@ const App = defineComponent({
       window.addEventListener("resize", updatePill);
       removeSmooth = installSmoothScroll();
       removeCursor = installCursor();
+      schedulePreloader();
     });
 
     onUnmounted(() => {
@@ -380,6 +407,8 @@ const App = defineComponent({
       window.removeEventListener("resize", updatePill);
       removeSmooth();
       removeCursor();
+      preloaderTimers.forEach((timer) => clearTimeout(timer));
+      document.body.classList.remove("is-preloading");
     });
 
     watch(isDark, (value) => {
@@ -469,7 +498,31 @@ const App = defineComponent({
       ]);
     }
 
-    return () => h("div", [
+    function renderPreloader() {
+      return h("div", {
+        class: ["preloader", preloaderPhase.value === "exit" ? "preloader--exit" : ""],
+        "aria-label": "Загрузка сайта"
+      }, [
+        h("div", { class: "preloader-cut preloader-cut--one" }),
+        h("div", { class: "preloader-cut preloader-cut--two" }),
+        h("div", { class: "preloader-cut preloader-cut--three" }),
+        h("div", { class: "preloader-logo-wrap" }, [
+          h("img", {
+            class: "preloader-logo",
+            src: ASSETS.logo,
+            alt: "Alexandr Scorolitnii logo",
+            draggable: "false"
+          }),
+          h("span", { class: "preloader-line preloader-line--one" }),
+          h("span", { class: "preloader-line preloader-line--two" })
+        ])
+      ]);
+    }
+
+    return () => h("div", {
+      class: ["app-shell", contentReady.value ? "app-shell--ready" : ""]
+    }, [
+      showPreloader.value ? renderPreloader() : null,
       h("div", {
         class: [
           "cursor-shape",
