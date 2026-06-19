@@ -765,6 +765,22 @@ strong {
   z-index: 2;
 }
 
+.photo-card::after {
+  opacity: 0.28;
+}
+
+.photo-card:hover {
+  background:
+    radial-gradient(circle at 52% 18%, rgba(255, 255, 255, 0.58), transparent 34%),
+    linear-gradient(180deg, rgba(250, 249, 247, 0.58), rgba(224, 220, 212, 0.62));
+  transform: translateY(-4px);
+}
+
+.photo-card:hover::after {
+  opacity: 0.32;
+  transform: none;
+}
+
 .full-body-photo {
   position: relative;
   z-index: 1;
@@ -772,11 +788,13 @@ strong {
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .photo-card:hover .full-body-photo {
-  transform: scale(1.025);
+  transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg) scale(1.025);
 }
 
 .quote-card {
